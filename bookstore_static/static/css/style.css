@@ -1,0 +1,40 @@
+.logo_word1{
+    font-size: 50px;
+    float: left;
+    text-align: center;
+    line-height: 500px;
+    height: 500px;
+    width: 1050px;
+    color: white;
+}
+.login_form{
+    position: absolute;
+    right: 80px;
+    height: 450px;
+    width: 350px;
+    background-color: white;
+    top:20px;
+}
+#title{
+    text-align: center;
+    color: gray;
+}
+#sub_btn{
+    background-color: #36997A;
+    width: 300px;
+    height: 50px;
+    margin-left:8px;
+    margin-top:26px;
+    color:white;
+}
+#codepic{
+    position: absolute;
+    top:320px;
+    right: 20px;
+}
+.errorMsg{
+    position: absolute;
+    top:112px;
+    right: 50px;
+    color: red;
+}
