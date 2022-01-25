@@ -1,0 +1,72 @@
+.logo_word1{
+    font-size: 50px;
+    float: left;
+    text-align: center;
+    line-height: 500px;
+    height: 500px;
+    width: 1050px;
+    color: white;
+}
+.regist_form{
+     position: absolute;
+     right: 80px;
+     height: 450px;
+     width: 350px;
+     background-color: white;
+     top:20px;
+ }
+.login_form{
+    position: absolute;
+    right: 80px;
+    height: 360px;
+    width: 350px;
+    background-color: white;
+    top:70px;
+}
+#title{
+    text-align: center;
+    color: gray;
+}
+
+#prompt{
+    position: absolute;
+    right: 27px;
+    top: 60px;
+    color: gray;
+    font-size: 14px;
+    background-color: #FEF6D2;
+    width: 300px;
+}
+#sub_btn{
+    background-color: #36997A;
+    width: 300px;
+    height: 50px;
+    margin-left:20px;
+    margin-top:26px;
+    color:white;
+}
+#sub_btn1{
+    background-color: #36997A;
+    width: 300px;
+    height: 50px;
+    margin-left:8px;
+    margin-top:23px;
+    color:white;
+}
+#login_btn{
+    background-color: #36997A;
+    width: 300px;
+    height: 50px;
+    color:white;
+}
+#codepic{
+    position: absolute;
+    top:320px;
+    right: 20px;
+}
+.errorMsg{
+    position: absolute;
+    top:112px;
+    right: 50px;
+    color: red;
+}
