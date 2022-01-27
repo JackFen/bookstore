@@ -23,7 +23,8 @@
         <div class="login_box">
             <h2 id="title">登录某某会员</h2>
             <div id="prompt">
-                <span><%=request.getAttribute("msg")==null?"请输入用户名和密码":request.getAttribute("msg")%></span>
+                <span><%--<%=request.getAttribute("msg")==null?"":request.getAttribute("msg")%>--%>
+                ${empty requestScope.msg?"请输入用户名和密码":requestScope.msg}</span>
             </div>
         </div>
         <br/>
@@ -33,7 +34,8 @@
                 <label>用户名称：</label>
                 <input class="itext" type="text" placeholder="请输入用户名"
                        autocomplete="off" tabindex="1" name="username" id="username"
-                       value="<%=request.getAttribute("username")==null?"":request.getAttribute("username")%>" style="height: 36px;width: 200px"/><br/>
+                       value="${requestScope.username}"
+                       style="height: 36px;width: 200px"/><br/>
                 <br/>
                 <label>用户密码：</label>
                 <input class="itext" type="text" placeholder="请输入密码"

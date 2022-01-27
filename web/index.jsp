@@ -31,7 +31,7 @@
               购物车
               <div class="cart-num">3</div>
             </a>
-            <a href="pages/manager/book_manager.jsp" class="admin">后台管理</a>
+            <a href="pages/manager/manager.jsp" class="admin">后台管理</a>
           </div>
 <!--          登录后风格-->
 <!--          <div class="topbar-right">-->

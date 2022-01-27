@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -5,17 +6,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../../static/css/minireset.css" />
-    <link rel="stylesheet" href="../../static/css/common.css" />
-    <link rel="stylesheet" href="../../static/css/cart.css" />
-    <link rel="stylesheet" href="../../static/css/bookManger.css" />
+    <%
+      String basePath=request.getScheme()
+              +"://"
+              +request.getServerName()
+              +":"
+              +request.getServerPort()
+              +request.getContextPath()
+              +"/";
+    %>
+    <!--写base标签，永远固定相对路径跳转的结果-->
+    <base href="<%=basePath%>">
+    <link rel="stylesheet" href="static/css/minireset.css" />
+    <link rel="stylesheet" href="static/css/common.css" />
+    <link rel="stylesheet" href="static/css/cart.css" />
+    <link rel="stylesheet" href="static/css/bookManger.css" />
   </head>
   <body>
     <div class="header">
       <div class="w">
         <div class="header-left">
-          <a href="../../index.jsp">
-            <img src="../../static/img/logo.gif" alt=""
+          <a href="index.jsp">
+            <img src="static/img/logo.gif" alt=""
           /></a>
           <h1>图书管理系统</h1>
         </div>
@@ -26,7 +38,7 @@
     <div class="list">
       <div class="w">
         <div class="add">
-          <a href="book_edit.jsp">添加图书</a>
+          <a href="pages/manager/book_edit.jsp">添加图书</a>
         </div>
         <table>
           <thead>
@@ -41,36 +53,22 @@
             </tr>
           </thead>
           <tbody>
+          <c:forEach items="${requestScope.books}" var="book">
             <tr>
               <td>
-                <img src="../../static/uploads/huozhe.jpg" alt="" />
+                <img src="${book.imgPath}" alt="" />
               </td>
-              <td>活着</td>
-              <td>
-                100.00
-              </td>
-              <td>余华</td>
-              <td>200</td>
-              <td>400</td>
+              <td>${book.name}</td>
+              <td>${book.price}</td>
+              <td>${book.author}</td>
+              <td>${book.sales}</td>
+              <td>${book.stock}</td>
               <td>
                 <a href="book_edit.jsp">修改</a><a href="" class="del">删除</a>
               </td>
             </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/huozhe.jpg" alt="" />
-              </td>
-              <td>活着</td>
-              <td>
-                100.00
-              </td>
-              <td>余华</td>
-              <td>200</td>
-              <td>400</td>
-              <td>
-                <a href="book_edit.jsp">修改</a><a href="" class="del">删除</a>
-              </td>
-            </tr>
+          </c:forEach>
+
           </tbody>
         </table>
         <div class="footer">
@@ -100,19 +98,19 @@
           <ul>
             <li>
               <a href="">
-                <img src="../../static/img/bottom1.png" alt="" />
+                <img src="static/img/bottom1.png" alt="" />
                 <span>大咖级讲师亲自授课</span>
               </a>
             </li>
             <li>
               <a href="">
-                <img src="../../static/img/bottom.png" alt="" />
+                <img src="static/img/bottom.png" alt="" />
                 <span>课程为学员成长持续赋能</span>
               </a>
             </li>
             <li>
               <a href="">
-                <img src="../../static/img/bottom2.png" alt="" />
+                <img src="static/img/bottom2.png" alt="" />
                 <span>学员真是情况大公开</span>
               </a>
             </li>
