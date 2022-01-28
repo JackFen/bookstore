@@ -9,7 +9,7 @@ public class Book {
     private BigDecimal price;
     private Integer sales;
     private Integer stock;
-    private String imgPath="static/img/default.img";
+    private String imgPath="static/img/default.jpg";
 
     public Book() {
     }
