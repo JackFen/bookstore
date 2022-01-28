@@ -21,18 +21,33 @@
     <link rel="stylesheet" href="static/css/common.css" />
     <link rel="stylesheet" href="static/css/cart.css" />
     <link rel="stylesheet" href="static/css/bookManger.css" />
+    <script type="text/javascript" src="static/script/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+      $(function () {
+          //用于删除的确定提示操作
+          $("a.del").click(function () {
+              //在事件的function函数中，有一个this对象这个对象是当前正在相应事件的dom对象
+              /*
+              * confirm是确认提示框函数
+              * 它有两个按钮，一个确认，一个是取消
+              * 返回true表示点击了确认，返回false表示点击了取消
+              * */
+              return confirm("你确定要删除【"+$(this).parent().parent().find("td:nth-child(2)").text()+"】?");
+          });
+      });
+    </script>
   </head>
   <body>
     <div class="header">
       <div class="w">
         <div class="header-left">
           <a href="index.jsp">
-            <img src="static/img/logo.gif" alt=""
-          /></a>
+            <img src="static/img/logo.gif" alt=""/>
+          </a>
           <h1>图书管理系统</h1>
         </div>
         <%--静态包含manager管理模块的菜单--%>
-        <%@include file="/pages/common/manager_menu.jsp"%>>
+        <%@include file="/pages/common/manager_menu.jsp"%>
       </div>
     </div>
     <div class="list">
@@ -64,7 +79,7 @@
               <td>${book.sales}</td>
               <td>${book.stock}</td>
               <td>
-                <a href="book_edit.jsp">修改</a><a href="" class="del">删除</a>
+                <a href="manager/bookServlet?action=getBook&id=${book.id}">修改</a><a href="manager/bookServlet?action=delete&id=${book.id}" class="del">删除</a>
               </td>
             </tr>
           </c:forEach>
@@ -76,8 +91,8 @@
             <div>首页</div>
             <div>上一页</div>
             <ul>
-              <li class="active">1</li>
-              <li>2</li>
+              <li>1</li>
+              <li class="active">2</li>
               <li>3</li>
             </ul>
             <div>下一页</div>
