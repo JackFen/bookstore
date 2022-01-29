@@ -40,6 +40,7 @@
     <div class="login_banner">
       <div class="register_form">
         <form action="manager/bookServlet"method="get">
+          <input type="hidden" name="pageNo" value="${param.pageNo}">
           <input type="hidden" name="action" value="${empty param.id?"add":"update"}"/>
           <input type="hidden" name="id" value="${requestScope.book.id}"/>
           <div class="form-item">
