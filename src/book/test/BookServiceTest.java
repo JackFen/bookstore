@@ -1,6 +1,7 @@
 package book.test;
 
 import book.pojo.Book;
+import book.pojo.Page;
 import book.service.BookService;
 import book.service.impl.BookServiceImpl;
 import org.junit.Test;
@@ -36,5 +37,9 @@ public class BookServiceTest {
         for (Book queryBook:bookService.queryBooks()){
             System.out.println(queryBook);
         }
+    }
+    @Test
+    public void page(){
+        System.out.println(bookService.page(1, Page.PAGE_SIZE ));
     }
 }
