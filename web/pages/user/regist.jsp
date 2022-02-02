@@ -4,13 +4,26 @@
 <head>
     <meta charset="UTF-8">
     <title>某某会员注册页面</title>
+    <%
+        String basePath=request.getScheme()
+                +"://"
+                +request.getServerName()
+                +":"
+                +request.getServerPort()
+                +request.getContextPath()
+                +"/";
+        pageContext.setAttribute("basePath",basePath );
+    %>
     <!--写base标签，永远固定相对路径跳转的结果-->
-    <base href="http://localhost:8080/book/">
+    <base href="<%=basePath%>">
     <link type="text/css" rel="stylesheet" href="static/css1/style.css">
     <script type="text/javascript" src="static/script/jquery-3.6.0.js"></script>
     <script type="text/javascript">
         //页面加载完成之后
         $(function () {
+            $("#codepic").click(function () {
+                this.src="${basePath}/kaptcha.jpg?d="+new Date();
+            });
             //给注册绑定单击事件
             $("#sub_btn1").click(function () {
                 //验证用户名：必须由字母，数组下划线组成，并且长度为5到12位
@@ -110,7 +123,7 @@
                 <input class="itext" type="text"
                        autocomplete="off" tabindex="1" name="code" id="code"style="height: 36px;width: 130px"/><br/>
                         <input type="submit" value="注册" id="sub_btn1" />
-                <img id="codepic" alt="" src="static/img1/code.png" style="height: 50px;width:100px;">
+                <img id="codepic" alt="" src="kaptcha.jpg" style="height: 44px;width:100px;">
             </form>
         </div>
     </div>

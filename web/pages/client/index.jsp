@@ -36,15 +36,19 @@
             <i class="iconfont icon-ai-arrow-down"></i>
           </div>
           <div class="topbar-right">
-            <a href="pages/user/login.jsp" class="login">登录</a>
-            <a href="pages/user/regist.jsp" class="register">注册</a>
-            <a
-              href="pages/cart/cart.jsp"
-              class="cart iconfont icon-gouwuche
-			"
-            >
-              购物车
-              <div class="cart-num">3</div>
+            <%--如果用户还没有登录，显示登录和注册的菜单--%>
+            <c:if test="${empty sessionScope.user}">
+              <a href="pages/user/login.jsp" class="login">登录</a>
+              <a href="pages/user/regist.jsp" class="register">注册</a>
+            </c:if>
+              <%--如果已经登录，则显示登录成功之后的用户信息--%>
+            <c:if test="${not empty sessionScope.user}">
+              <span style="font-size: 18px">${sessionScope.user.username} 欢迎光临某某书城</span>
+              <a style="font-size: 18px" href="./pages/order/order.jsp">我的订单</a>
+              <a style="font-size: 18px" href="userServlet?action=loginout">注销</a>&nbsp;&nbsp;
+            </c:if>
+            <a href="pages/cart/cart.jsp" class="cart iconfont icon-gouwuche">购物车<div class="cart-num">
+              3</div>
             </a>
             <a href="pages/manager/manager.jsp" class="admin">后台管理</a>
           </div>
