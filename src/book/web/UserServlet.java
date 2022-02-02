@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
+
 public class UserServlet extends BaseServlet {
     private UserService userService=new UserServiceImpl();
 //    @Override
@@ -44,18 +46,31 @@ public class UserServlet extends BaseServlet {
         }
         else {
             //登录成功
+            //保存用户登录的信息
+            req.getSession().setAttribute("user",loginUser );
             //跳到成功页面Login_success.html
             req.getRequestDispatcher("/pages/user/login_success.jsp").forward(req,resp);
         }
     }
+    protected void loginout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //1.摧毁session中用户登录的信息（或者销毁session）
+        req.getSession().invalidate();
+        //2.重新定向到首页（或者登录页面）
+        resp.sendRedirect(req.getContextPath());
+    }
     protected void regist(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, InvocationTargetException, IllegalAccessException {
+        //获取Session中的验证码
+        String token= (String) req.getSession().getAttribute(KAPTCHA_SESSION_KEY);
+        //删除session中的验证码
+        req.getSession().removeAttribute(KAPTCHA_SESSION_KEY);
+        String code = req.getParameter("code");
         //1.获取请求的参数
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String email = req.getParameter("email");
-        String code = req.getParameter("code");
+
             //2.检擦验证码是否正确
-            if ("7364".equals(code)) {
+            if (token!=null&&token.equalsIgnoreCase(code)) {
                 //3.用户名是否可用
                 if (userService.existsUsername(username)) {
                     req.setAttribute("msg", "用户名已存在！！");

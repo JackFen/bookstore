@@ -15,7 +15,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1.获取请求参数
-        String username = req.getParameter("username");
+        String username = req.getParameter("username");/*注意：此类已被抛弃，功能转到userServlet*/
         String password = req.getParameter("password");
         //2.调用uerService.login()登录处理业务
         User loginUser=userService.login(new User(null,username,password,null));
