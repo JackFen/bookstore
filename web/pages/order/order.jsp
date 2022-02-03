@@ -5,27 +5,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>我的订单</title>
-    <link rel="stylesheet" href="../../static/css/minireset.css" />
-    <link rel="stylesheet" href="../../static/css/common.css" />
-    <link rel="stylesheet" href="../../static/css/cart.css" />
-    <link rel="stylesheet" href="../../static/css/bookManger.css" />
-    <link rel="stylesheet" href="../../static/css/orderManger.css" />
+    <%
+      String basePath=request.getScheme()
+              +"://"
+              +request.getServerName()
+              +":"
+              +request.getServerPort()
+              +request.getContextPath()
+              +"/";
+      pageContext.setAttribute("basePath",basePath );
+    %>
+    <!--写base标签，永远固定相对路径跳转的结果-->
+    <base href="<%=basePath%>">
+    <link rel="stylesheet" href="static/css/minireset.css" />
+    <link rel="stylesheet" href="static/css/common.css" />
+    <link rel="stylesheet" href="static/css/cart.css" />
+    <link rel="stylesheet" href="static/css/bookManger.css" />
+    <link rel="stylesheet" href="static/css/orderManger.css" />
   </head>
   <body>
     <div class="header">
       <div class="w">
         <div class="header-left">
-          <a href="../../index.jsp">
-            <img src="../../static/img/logo.gif" alt=""
+          <a href="index.jsp">
+            <img src="static/img/logo.gif" alt=""
           /></a>
           <h1>我的订单</h1>
         </div>
         <div class="header-right">
-          <h3>欢迎<span>张总</span>光临尚硅谷书城</h3>
-          <div class="order"><a href="../order/order.jsp">我的订单</a></div>
-          <div class="destory"><a href="../../index.jsp">注销</a></div>
+          <h3>${sessionScope.user.username} 欢迎光临尚硅谷书城</h3>
+          <div class="destory"><a href="index.jsp">注销</a></div>
           <div class="gohome">
-            <a href="../../index.jsp">返回</a>
+            <a href="index.jsp">返回</a>
           </div>
         </div>
       </div>
@@ -78,21 +89,8 @@
         </table>
         <div class="footer">
           <div class="footer-right">
-            <div>首页</div>
-            <div>上一页</div>
-            <ul>
-              <li class="active">1</li>
-              <li>2</li>
-              <li>3</li>
-            </ul>
-            <div>下一页</div>
-            <div>末页</div>
-            <span>共10页</span>
-            <span>30条记录</span>
-            <span>到第</span>
-            <input type="text" />
-            <span>页</span>
-            <button>确定</button>
+            <%--静态包含分页条--%>
+            <%@include file="/pages/common/page_nav.jsp"%>
           </div>
         </div>
       </div>
@@ -103,19 +101,19 @@
           <ul>
             <li>
               <a href="">
-                <img src="../../static/img/bottom1.png" alt="" />
+                <img src="static/img/bottom1.png" alt="" />
                 <span>大咖级讲师亲自授课</span>
               </a>
             </li>
             <li>
               <a href="">
-                <img src="../../static/img/bottom.png" alt="" />
+                <img src="static/img/bottom.png" alt="" />
                 <span>课程为学员成长持续赋能</span>
               </a>
             </li>
             <li>
               <a href="">
-                <img src="../../static/img/bottom2.png" alt="" />
+                <img src="static/img/bottom2.png" alt="" />
                 <span>学员真是情况大公开</span>
               </a>
             </li>

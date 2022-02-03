@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -5,25 +6,63 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="../../static/css/minireset.css" />
-    <link rel="stylesheet" href="../../static/css/common.css" />
-    <link rel="stylesheet" href="../../static/css/cart.css" />
+    <%
+      String basePath=request.getScheme()
+              +"://"
+              +request.getServerName()
+              +":"
+              +request.getServerPort()
+              +request.getContextPath()
+              +"/";
+      pageContext.setAttribute("basePath",basePath );
+    %>
+    <!--写base标签，永远固定相对路径跳转的结果-->
+    <base href="<%=basePath%>">
+    <link rel="stylesheet" href="static/css/minireset.css" />
+    <link rel="stylesheet" href="static/css/common.css" />
+    <link rel="stylesheet" href="static/css/cart.css" />
+    <script type="text/javascript" src="static/script/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+      $(function () {
+          $("a.deleteItem").click(function () {
+             return confirm("你确定要删除【"+$(this).parent().parent().find("td:nth-child(2)").text()+"】吗？");
+          });
+          $("a.clear-cart").click(function () {
+              return confirm("你确定要清空购物车吗？");
+          });
+          //给输入框绑定失去焦点事件==onchange内容发生改变事件
+          $(".count-num").change(function () {
+              //获取商品数量
+              var count = this.value;
+              var id=$(this).attr('bookId');
+              if (confirm("你确定要【"+$(this).parent().parent().find("td:nth-child(2)").text()+"】数量改为"+count+"吗？")){
+                  //发起请求，给服务器保存
+                  location.href="cartServlet?action=updateCount&count="+count+"&id="+id;
+              }
+              else {
+                  //defaultValue属性是表单项dom对象的属性，它表示默认的value属性值
+                  this.value=this.defaultValue;
+              }
+          })
+      });
+
+    </script>
   </head>
   <body>
     <div class="header">
       <div class="w">
         <div class="header-left">
-          <a href="../../index.jsp">
-            <img src="../../static/img/logo.gif" alt=""
+          <a href="index.jsp">
+            <img src="static/img/logo.gif" alt=""
           /></a>
           <h1>我的购物车</h1>
         </div>
         <div class="header-right">
-          <h3>欢迎<span>张总</span>光临尚硅谷书城</h3>
-          <div class="order"><a href="../order/order.jsp">我的订单</a></div>
-          <div class="destory"><a href="../../index.jsp">注销</a></div>
+          <h3><span> ${sessionScope.user.username}</span> 欢迎光临某某书城</h3>
+          <div class="order"><a href="pages/order/order.jsp">我的订单</a></div>
+          <div class="destory"><a href="userServlet?action=loginout">注销</a></div>
           <div class="gohome">
-            <a href="../../index.jsp">返回</a>
+            <a href="index.jsp">返回</a>
           </div>
         </div>
       </div>
@@ -43,96 +82,41 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                <img src="../../static/uploads/huozhe.jpg" alt="" />
-              </td>
-              <td>活着</td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="1" />
-                <span class="count">+</span>
-              </td>
-              <td>36.8</td>
-              <td>36.8</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/kanjian.jpg" alt="" />
-              </td>
-              <td>看见</td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="1" />
-                <span class="count">+</span>
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/kanjian.jpg" alt="" />
-              </td>
-              <td>
-                假如书名太长了,只展示一部分书名.自动展示省略号
-              </td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="1" />
-                <span class="count">+</span>
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/kanjian.jpg" alt="" />
-              </td>
-              <td>
-                假如书名太长了,只展示一部分书名.自动展示省略号
-              </td>
-              <td>
-                <!-- <div> -->
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="100" />
-                <span class="count">+</span>
-                <!-- </div> -->
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
-            <tr>
-              <td>
-                <img src="../../static/uploads/kanjian.jpg" alt="" />
-              </td>
-              <td>
-                假如书名太长了,只展示一部分书名.自动展示省略号
-              </td>
-              <td>
-                <span class="count">-</span>
-                <input class="count-num" type="text" value="99" />
-                <span class="count">+</span>
-              </td>
-              <td>40.1</td>
-              <td>40.1</td>
-              <td><a href="">删除</a></td>
-            </tr>
+          <c:if test="${empty sessionScope.cart.items}">
+            <%--购物车为空的情况--%>
+            <td colspan="6"><a href="index.jsp"> 亲，当前购物车为空!快跟小伙伴们去浏览商品吧</a></td>
+          </c:if>
+          <c:if test="${not empty sessionScope.cart.items}">
+            <%--购物车不为空的情况--%>
+            <c:forEach items="${sessionScope.cart.items}" var="entry">
+              <tr>
+                <td>
+                  <img src="${entry.value.imgPath}" alt="" />
+                </td>
+                <td>${entry.value.name}</td>
+                <td>
+                  <input class="count-num" type="text" bookId="${entry.value.id}" value="${entry.value.count}">
+                </td>
+                <td>${entry.value.price}</td>
+                <td>${entry.value.totalPrice}</td>
+                <td><a class="deleteItem" href="cartServlet?action=deleteItem&id=${entry.value.id}">删除</a></td>
+              </tr>
+            </c:forEach>
+          </c:if>
           </tbody>
         </table>
+        <c:if test="${not empty sessionScope.cart.items}">
         <div class="footer">
           <div class="footer-left">
-            <a href="#" class="clear-cart">清空购物车</a>
-            <a href="#">继续购物</a>
+            <a href="cartServlet?action=clear" class="clear-cart">清空购物车</a>
+            <a href="index.jsp">继续购物</a>
           </div>
-          <div class="footer-right">
-            <div>共<span>3</span>件商品</div>
-            <div class="total-price">总金额<span>99.9</span>元</div>
-            <a class="pay" href="checkout.jsp">去结账</a>
-          </div>
+            <div class="footer-right">
+              <div>共<span>${sessionScope.cart.totalCount}</span>件商品</div>
+              <div class="total-price">总金额<span>${sessionScope.cart.totalPrice}</span>元</div>
+              <a class="pay" href="checkout.jsp">去结账</a>
+            </div>
+          </c:if>
         </div>
       </div>
     </div>
@@ -142,19 +126,19 @@
           <ul>
             <li>
               <a href="">
-                <img src="../../static/img/bottom1.png" alt="" />
+                <img src="static/img/bottom1.png" alt="" />
                 <span>大咖级讲师亲自授课</span>
               </a>
             </li>
             <li>
               <a href="">
-                <img src="../../static/img/bottom.png" alt="" />
+                <img src="static/img/bottom.png" alt="" />
                 <span>课程为学员成长持续赋能</span>
               </a>
             </li>
             <li>
               <a href="">
-                <img src="../../static/img/bottom2.png" alt="" />
+                <img src="static/img/bottom2.png" alt="" />
                 <span>学员真是情况大公开</span>
               </a>
             </li>

@@ -25,6 +25,15 @@
     <link rel="stylesheet" href="./static/css/iconfont.css" />
     <link rel="stylesheet" href="./static/css/index.css" />
     <link rel="stylesheet" href="./static/css/swiper.min.css" />
+    <script type="text/javascript">
+      $(function () {
+          //给加入购物车按钮绑定单击事件
+          $("button.addToCart").click(function () {
+              var bookId=$(this).attr("bookId");
+              location.href="cartServlet?action=addItem&id="+bookId;
+          });
+      });
+    </script>
   </head>
   <body>
     <div id="app">
@@ -47,8 +56,12 @@
               <a style="font-size: 18px" href="./pages/order/order.jsp">我的订单</a>
               <a style="font-size: 18px" href="userServlet?action=loginout">注销</a>&nbsp;&nbsp;
             </c:if>
-            <a href="pages/cart/cart.jsp" class="cart iconfont icon-gouwuche">购物车<div class="cart-num">
-              3</div>
+            <a href="pages/cart/cart.jsp" class="cart iconfont icon-gouwuche">购物车
+              <c:if test="${ not empty sessionScope.cart.items}">
+                <%--购物车非空的时候有数量显示--%>
+                <div class="cart-num">
+                    ${sessionScope.cart.totalCount}</div>
+              </c:if>
             </a>
             <a href="pages/manager/manager.jsp" class="admin">后台管理</a>
           </div>
@@ -186,7 +199,7 @@
                   <p>价格:￥${book.price}</p>
                   <p>销量:${book.sales}</p>
                   <p>库存:${book.stock}</p>
-                  <button>加入购物车</button>
+                  <button bookId="${book.id}" class="addToCart">加入购物车</button>
                 </div>
               </c:forEach>
 
