@@ -21,10 +21,8 @@ public abstract class BaseDao {
             return queryRunner.update(connection,sql,args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(connection);
+            throw new RuntimeException(e);
         }
-        return -1;
     }
     /*
     * 查询返回一个javaBean的sql语句
@@ -38,10 +36,8 @@ public abstract class BaseDao {
             return queryRunner.query(con,sql,new BeanHandler<T>(type),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(con);
+            throw new RuntimeException(e);
         }
-        return null;
     }
     /*
      * 查询返回多个javaBean的sql语句
@@ -55,10 +51,8 @@ public abstract class BaseDao {
             return queryRunner.query(con,sql,new BeanListHandler<T>(type),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(con);
+            throw new RuntimeException(e);
         }
-        return null;
     }
     /*
     * * 查询一行一列的sql语句
@@ -71,9 +65,7 @@ public abstract class BaseDao {
             return queryRunner.query(conn,sql,new ScalarHandler(),args);
         } catch (SQLException e) {
             e.printStackTrace();
-        }finally {
-            JdbcUtils.close(conn);
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }
