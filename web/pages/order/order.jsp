@@ -33,7 +33,7 @@
           <h1>我的订单</h1>
         </div>
         <div class="header-right">
-          <h3>${sessionScope.user.username} 欢迎光临尚硅谷书城</h3>
+          <h3>${sessionScope.user.username} 欢迎光临某某书城</h3>
           <div class="destory"><a href="index.jsp">注销</a></div>
           <div class="gohome">
             <a href="index.jsp">返回</a>

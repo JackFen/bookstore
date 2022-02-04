@@ -114,7 +114,7 @@
             <div class="footer-right">
               <div>共<span>${sessionScope.cart.totalCount}</span>件商品</div>
               <div class="total-price">总金额<span>${sessionScope.cart.totalPrice}</span>元</div>
-              <a class="pay" href="checkout.jsp">去结账</a>
+              <a class="pay" href="orderServlet?action=createOrder">去结账</a>
             </div>
           </c:if>
         </div>
