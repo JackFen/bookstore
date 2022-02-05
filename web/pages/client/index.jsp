@@ -31,6 +31,10 @@
           $("button.addToCart").click(function () {
               var bookId=$(this).attr("bookId");
               location.href="cartServlet?action=addItem&id="+bookId;
+              //发ajax请求，添加商品到购物车
+              // $.getJSON("cartServlet","action=ajaxAddItem&id="+bookId,function (data) {
+              //     $("div.cart-num").text(data.totalCount);
+              // })
           });
       });
     </script>
@@ -59,8 +63,7 @@
             <a href="pages/cart/cart.jsp" class="cart iconfont icon-gouwuche">购物车
               <c:if test="${ not empty sessionScope.cart.items}">
                 <%--购物车非空的时候有数量显示--%>
-                <div class="cart-num">
-                    ${sessionScope.cart.totalCount}</div>
+                <div  class="cart-num">${sessionScope.cart.totalCount}</div>
               </c:if>
             </a>
             <a href="pages/manager/manager.jsp" class="admin">后台管理</a>
