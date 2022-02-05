@@ -26,13 +26,7 @@ public class OrderServlet extends BaseServlet {
         Integer userId=loginUser.getId();
         //调用orderService.createOrder(Cart,Uerid);生成订单
         String orderId = null;
-        try {
             orderId = orderService.createOrder(cart,userId );
-            JdbcUtils.commitAndClose();//提交事务
-        } catch (Exception e) {
-            JdbcUtils.rollbackAndClose();//回滚事务
-            e.printStackTrace();
-        }
 //        req.setAttribute("orderId",orderId );
 //        //请求转发到/pages/cart/checkout.jsp
 //        req.getRequestDispatcher("/pages/cart/checkout.jsp").forward(req,resp );

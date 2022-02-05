@@ -6,11 +6,14 @@ import book.pojo.CartItem;
 import book.service.BookService;
 import book.service.impl.BookServiceImpl;
 import book.utils.WebUtils;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CartServlet extends BaseServlet {
     private BookService bookService=new BookServiceImpl();
@@ -60,8 +63,8 @@ public class CartServlet extends BaseServlet {
         //调用Cart.addItem(CartItem)；添加商品项
         Cart cart=(Cart) req.getSession().getAttribute("cart");
         if (cart==null){
-             cart=new Cart();
-             req.getSession().setAttribute("cart",cart );
+            cart=new Cart();
+            req.getSession().setAttribute("cart",cart );
         }
         cart.addItem(cartItem);
 //        //最后一次添加商品的名称
@@ -69,5 +72,30 @@ public class CartServlet extends BaseServlet {
         //重定向回商品所在的列表页面
         resp.sendRedirect(req.getHeader("Referer"));
 
+    }
+    protected void ajaxAddItem(HttpServletRequest req, HttpServletResponse resp)throws ServletException,IOException{
+//        System.out.println("加入购物车");
+//        System.out.println("商品编号："+req.getParameter("id"));
+        //获取请求参数
+        int id= WebUtils.parseInt(req.getParameter("id"), 0);
+        //调用bookService.queryBookById(id):Book得到图书的信息
+        Book book=bookService.queryBookById(id);
+        //把图书信息，转换为CartItem商品项
+        CartItem cartItem=new CartItem(book.getImgPath(),book.getId(),book.getName(),1,book.getPrice(),book.getPrice());
+        //调用Cart.addItem(CartItem)；添加商品项
+        Cart cart=(Cart) req.getSession().getAttribute("cart");
+        if (cart==null){
+            cart=new Cart();
+            req.getSession().setAttribute("cart",cart );
+        }
+        cart.addItem(cartItem);
+//        //最后一次添加商品的名称
+//        req.getSession().setAttribute("lastName",cartItem.getName() );
+        //返回购物车总的商品数量
+        Map<String,Object>resultMap=new HashMap<String, Object>();
+        resultMap.put("totalCount",cart.getTotalCount() );
+        Gson gson=new Gson();
+        String resultMapJsonString=gson.toJson(resultMap);
+        resp.getWriter().write(resultMapJsonString);
     }
 }

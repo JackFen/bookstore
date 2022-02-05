@@ -4,6 +4,7 @@ import book.pojo.User;
 import book.service.UserService;
 import book.service.impl.UserServiceImpl;
 import book.utils.WebUtils;
+import com.google.gson.Gson;
 import org.apache.commons.beanutils.BeanUtils;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.google.code.kaptcha.Constants.KAPTCHA_SESSION_KEY;
 
@@ -30,6 +33,18 @@ public class UserServlet extends BaseServlet {
 //        }
 //    }
 
+    protected void ajaxExistUsername(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        //获取请求的参数username
+        String username = req.getParameter("username");
+        //调用userService.existsUsername();
+        boolean existsUsername = userService.existsUsername(username);
+        //把返回的结果封装成为map对象
+        Map<String,Object> resultMap=new HashMap<>();
+        resultMap.put("existsUsername",existsUsername );
+        Gson gson=new Gson();
+        String json = gson.toJson(resultMap);
+        resp.getWriter().write(json);
+    }
     protected void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //1.获取请求参数
         String username = req.getParameter("username");
