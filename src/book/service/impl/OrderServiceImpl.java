@@ -10,6 +10,7 @@ import book.pojo.*;
 import book.service.OrderService;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class OrderServiceImpl implements OrderService {
@@ -42,5 +43,30 @@ public class OrderServiceImpl implements OrderService {
         //清空购物车
         cart.clear();
         return orderId;
+    }
+
+    @Override
+    public List<Order> showAllOrders() {
+        return orderDao.queryOrders();
+    }
+
+    @Override
+    public void senOrder(String orderId) {
+        orderDao.changeOrderStatus(orderId,1);
+    }
+
+    @Override
+    public List<OrderItem> showOrderDetail(String orderId) {
+        return orderItemDao.queryItemById(orderId);
+    }
+
+    @Override
+    public List<Order> showMyOrders(Integer userId) {
+        return orderDao.queryOrdersByUserId(userId);
+    }
+
+    @Override
+    public void receiveOrder(String orderId) {
+        orderDao.changeOrderStatus(orderId,2 );
     }
 }

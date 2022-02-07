@@ -5,7 +5,7 @@ import java.util.List;
 * page是分页的模型对象
 * @param<T>是具体的模块的javaBean类*/
 public class Page<T> {
-    public static final Integer PAGE_SIZE=4;
+    public static final Integer PAGE_SIZE=10;
     //当前页码
     private Integer pageNo;
     //总页码
