@@ -38,7 +38,7 @@
                        style="height: 36px;width: 200px"/><br/>
                 <br/>
                 <label>用户密码：</label>
-                <input class="itext" type="text" placeholder="请输入密码"
+                <input class="itext" type="password" placeholder="请输入密码"
                        autocomplete="off" tabindex="1" name="password" id="password" style="height: 36px;width: 200px"/><br/>
                 <br/>
                 <input type="submit" value="登录" id="login_btn" /><br/>

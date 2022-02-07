@@ -59,7 +59,7 @@
         </div>
         <div class="header-right">
           <h3><span> ${sessionScope.user.username}</span> 欢迎光临某某书城</h3>
-          <div class="order"><a href="pages/order/order.jsp">我的订单</a></div>
+          <div class="order"><a href="orderServlet?action=showMyOrders&userId=${sessionScope.user.id}">我的订单</a></div>
           <div class="destory"><a href="userServlet?action=loginout">注销</a></div>
           <div class="gohome">
             <a href="index.jsp">返回</a>

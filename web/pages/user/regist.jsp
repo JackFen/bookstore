@@ -115,12 +115,12 @@
                 </span>
                 <br/>
                 <label>用户密码：</label>
-                <input class="itext" type="text" placeholder="请输入密码"
+                <input class="itext" type="password" placeholder="请输入密码"
                        autocomplete="off" tabindex="1" name="password" id="password"
                         style="height: 36px;width: 200px"/><br/>
                 <br/>
                 <label>确认密码：</label>
-                <input class="itext" type="text" placeholder="确认密码"
+                <input class="itext" type="password" placeholder="确认密码"
                        autocomplete="off" tabindex="1" name="repwd" id="repwd"  style="height: 36px;width: 200px"/>
                 <br/>
                 <br/>

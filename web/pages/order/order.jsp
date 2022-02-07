@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,9 @@
     <link rel="stylesheet" href="static/css/cart.css" />
     <link rel="stylesheet" href="static/css/bookManger.css" />
     <link rel="stylesheet" href="static/css/orderManger.css" />
+    <script type="text/javascript" src="static/script/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+    </script>
   </head>
   <body>
     <div class="header">
@@ -34,7 +38,7 @@
         </div>
         <div class="header-right">
           <h3>${sessionScope.user.username} 欢迎光临某某书城</h3>
-          <div class="destory"><a href="index.jsp">注销</a></div>
+          <div class="destory"><a href="userServlet?action=loginout">注销</a></div>
           <div class="gohome">
             <a href="index.jsp">返回</a>
           </div>
@@ -49,48 +53,41 @@
               <th>订单号</th>
               <th>订单日期</th>
               <th>订单金额</th>
-              <th>订单数量</th>
+              <th></th>
               <th>订单状态</th>
               <th>订单详情</th>
             </tr>
           </thead>
           <tbody>
+          <c:forEach items="${sessionScope.orders}" var="order">
             <tr>
-              <td>12354456895</td>
+              <td>${order.orderId}</td>
               <td>
-                2015.04.23
+                ${order.createTime}
               </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">等待发货</a></td>
-              <td><a href="">查看详情</a></td>
+              <td>${order.price}</td>
+              <td></td>
+              <td><a href="" class="send">
+                <c:if test="${order.status==0}">
+                  未发货
+                </c:if>
+                <c:if test="${order.status==1}">
+                  已发货
+                </c:if>
+                <c:if test="${order.status==2}">
+                  已签收
+                </c:if>
+              </a></td>
+              <td><a href="orderServlet?action=showOrderDetail&orderId=${order.orderId}">查看详情</a></td>
             </tr>
-            <tr>
-              <td>12354456895</td>
-              <td>
-                2015.04.23
-              </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">未发货</a></td>
-              <td><a href="">查看详情</a></td>
-            </tr>
-            <tr>
-              <td>12354456895</td>
-              <td>
-                2015.04.23
-              </td>
-              <td>90.00</td>
-              <td>88</td>
-              <td><a href="" class="send">已发货</a></td>
-              <td><a href="">查看详情</a></td>
-            </tr>
+          </c:forEach>
+
           </tbody>
         </table>
         <div class="footer">
           <div class="footer-right">
-            <%--静态包含分页条--%>
-            <%@include file="/pages/common/page_nav.jsp"%>
+            <%--&lt;%&ndash;静态包含分页条&ndash;%&gt;--%>
+            <%--<%@include file="/pages/common/page_nav.jsp"%>--%>
           </div>
         </div>
       </div>
